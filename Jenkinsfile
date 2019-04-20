@@ -48,7 +48,7 @@ pipeline {
 
         stage('Release') {
             when (
-                environment naem: 'RELEASE', value: 'yes'
+                environment name: 'RELEASE', value: 'yes'
             )
 
             steps {
