@@ -4,7 +4,7 @@ pipeline {
     agent any
     environment {
     }
-    
+
     stages {
         stage('Checkout') {
 
@@ -35,8 +35,6 @@ pipeline {
         stage('Confirm Release') {
             steps {
                 script {
-                    
-                
             
                     def userInput = input message: 'Input required',
                         parameters: [
@@ -49,9 +47,9 @@ pipeline {
         }
 
         stage('Release') {
-            when (
+            when {
                 environment name: 'RELEASE', value: 'yes'
-            )
+            }
 
             steps {
                 echo 'Releasing...'
