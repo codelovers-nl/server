@@ -6,7 +6,7 @@ pipeline {
     tools {
         nodejs "node"
     }
-    
+
     stages {
         stage('Checkout') {
 
@@ -22,6 +22,8 @@ pipeline {
             steps {
                 echo 'Building...'
 
+                sh 'npm install'
+                
                 sh 'npm run build'
             }
         }
