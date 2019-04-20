@@ -48,7 +48,7 @@ pipeline {
             when {
 
                 expression {
-                    env.RELEASE === 'yes'
+                    env.RELEASE == 'yes'
                 }
 
             }
