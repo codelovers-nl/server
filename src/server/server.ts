@@ -2,8 +2,6 @@ import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import express from 'express'
-import { Container } from 'inversify'
-import { TYPES } from '../types'
 import { Controller } from '../controller/controller'
 import { Middleware } from '../middleware'
 
@@ -11,17 +9,12 @@ export class Server {
 
     private app: express.Application
     private router: express.Router
-
-    constructor(
-        private container: Container
-    ) {
-
+    
+    constructor() {
         this.app = express()
         this.router = express.Router()
 
         this.config()
-
-        this.routes()
     }
 
     private config() {
@@ -31,30 +24,23 @@ export class Server {
         this.app.use(methodOverride())
     }
 
-    private routes() {
-        
-        // Pre routing middleware
-        this.container.getAll<Middleware>(TYPES.PreRoutingMiddleware)
-            .forEach((middleware) => {
-                this.router.use(middleware)
-            })
-        
-        // Routes
-        this.container.getAll<Controller>(TYPES.Controller)
-            .forEach((controller) => {
-                controller.setupRoutes(this.router)
-            })
+    withMiddleware(middleware: Middleware[]): Server {
+        middleware
+            .forEach((m) => this.router.use(m))
 
-        // Post routing middleware
-        this.container.getAll<Middleware>(TYPES.PostRoutingMiddleware)
-            .forEach((middleware) => {
-                this.router.use(middleware)
-            })
+        return this
+    }
 
-        this.app.use(this.router)
+    withControllers(controllers: Controller[]): Server {
+        controllers
+            .forEach((c) => c.setupRoutes(this.router))
+        
+        return this
     }
 
     start(port: number) {
+        this.app.use(this.router)
+
         this.app.listen(port, () => {
             console.log(`Listening to *:${port}`)
         })

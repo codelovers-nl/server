@@ -1,0 +1,12 @@
+{"level":"debug","message":"Found 2 amqp listeners"}
+{"level":"debug","message":"Found 1 amqp emitters"}
+{"level":"debug","message":"App started"}
+{"level":"debug","message":"Found 2 amqp listeners"}
+{"level":"debug","message":"Found 1 amqp emitters"}
+{"level":"debug","message":"App started"}
+{"level":"debug","message":"Found 2 amqp listeners"}
+{"level":"debug","message":"Found 1 amqp emitters"}
+{"level":"debug","message":"Found 0 pre-routing middleware"}
+{"level":"debug","message":"Found 2 controllers"}
+{"level":"debug","message":"Found 1 post-routing middleware"}
+{"level":"debug","message":"App started"}
